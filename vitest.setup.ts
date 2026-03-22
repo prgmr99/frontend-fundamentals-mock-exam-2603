@@ -43,6 +43,7 @@ beforeAll(() => {
 afterEach(() => {
   server.resetHandlers();
   resetData();
+  window.history.replaceState({}, '', '/');
 });
 afterAll(() => {
   server.close();

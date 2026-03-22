@@ -3,10 +3,10 @@ import { getMyReservations, getRooms } from 'pages/remotes';
 
 export const getRoomsQueryOptions = queryOptions({
   queryKey: ['rooms'],
-  queryFn: getRooms,
+  queryFn: () => getRooms(),
 });
 
 export const getMyReservationQueryOptions = queryOptions({
   queryKey: ['myReservations'],
-  queryFn: getMyReservations,
+  queryFn: () => getMyReservations(),
 });
