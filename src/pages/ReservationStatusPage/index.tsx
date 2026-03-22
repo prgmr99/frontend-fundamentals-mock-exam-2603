@@ -7,6 +7,7 @@ import { useMessage } from 'domain/reservationStatus/hooks/useMessage';
 import DateSelect from 'domain/common/components/DateSelect';
 import ReservationCurrentStatus from 'domain/reservationStatus/components/ReservationCurrentStatus';
 import MessageBanner from 'domain/reservationStatus/components/MessageBanner';
+import { WRAPPER_STYLES } from 'domain/common/constants';
 
 export function ReservationStatusPage() {
   const navigate = useNavigate();
@@ -32,11 +33,7 @@ export function ReservationStatusPage() {
       <Spacing size={24} />
 
       {/* 날짜 선택 */}
-      <div
-        css={css`
-          padding: 0 24px;
-        `}
-      >
+      <div css={WRAPPER_STYLES}>
         <Text typography="t5" fontWeight="bold" color={colors.grey900}>
           날짜 선택
         </Text>
@@ -66,11 +63,7 @@ export function ReservationStatusPage() {
       <Spacing size={24} />
 
       {/* 예약하기 버튼 */}
-      <div
-        css={css`
-          padding: 0 24px;
-        `}
-      >
+      <div css={WRAPPER_STYLES}>
         <Button display="full" onClick={() => navigate('/booking')}>
           예약하기
         </Button>

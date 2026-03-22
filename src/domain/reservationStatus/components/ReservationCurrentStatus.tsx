@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { useQuery } from '@tanstack/react-query';
 import { Spacing, Text } from '_tosslib/components';
 import { colors } from '_tosslib/constants/colors';
-import { EQUIPMENT_LABELS, TIME_SLOTS } from 'domain/common/constants';
+import { EQUIPMENT_LABELS, TIME_SLOTS, WRAPPER_STYLES } from 'domain/common/constants';
 import { useDate } from 'domain/common/hooks/useDate';
 import { getRoomsQueryOptions } from 'domain/common/queryOptions';
 import { getReservations } from 'pages/remotes';
@@ -31,11 +31,7 @@ function ReservationCurrentStatus() {
   const [activeReservation, setActiveReservation] = useState<string | null>(null);
 
   return (
-    <div
-      css={css`
-        padding: 0 24px;
-      `}
-    >
+    <div css={WRAPPER_STYLES}>
       <Text typography="t5" fontWeight="bold" color={colors.grey900}>
         예약 현황
       </Text>

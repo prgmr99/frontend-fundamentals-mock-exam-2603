@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Button, ListRow, Spacing, Text } from '_tosslib/components';
 import { colors } from '_tosslib/constants/colors';
-import { EQUIPMENT_LABELS } from 'domain/common/constants';
+import { EQUIPMENT_LABELS, WRAPPER_STYLES } from 'domain/common/constants';
 import { getMyReservationQueryOptions, getRoomsQueryOptions } from 'domain/common/queryOptions';
 import { cancelReservation } from 'pages/remotes';
 
@@ -39,11 +39,7 @@ function MyReservation({
     rooms.find((r: { id: string; name: string }) => r.id === roomId)?.name ?? roomId;
 
   return (
-    <div
-      css={css`
-        padding: 0 24px;
-      `}
-    >
+    <div css={WRAPPER_STYLES}>
       <div
         css={css`
           display: flex;

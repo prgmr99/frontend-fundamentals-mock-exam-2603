@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+
 export const EQUIPMENT_LABELS: Record<string, string> = {
   tv: 'TV',
   whiteboard: '화이트보드',
@@ -12,3 +14,7 @@ for (let h = 9; h <= 20; h++) {
     TIME_SLOTS.push(`${String(h).padStart(2, '0')}:30`);
   }
 }
+
+export const WRAPPER_STYLES = css`
+  padding: 0 24px;
+`;
