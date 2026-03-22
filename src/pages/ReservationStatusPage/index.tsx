@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { Top, Spacing, Border, Button } from '_tosslib/components';
+import { Top, Spacing, Border, Button, Text } from '_tosslib/components';
 import { colors } from '_tosslib/constants/colors';
 import MyReservation from 'domain/reservationStatus/components/MyReservation';
 import { useMessage } from 'domain/reservationStatus/hooks/useMessage';
@@ -32,7 +32,17 @@ export function ReservationStatusPage() {
       <Spacing size={24} />
 
       {/* 날짜 선택 */}
-      <DateSelect />
+      <div
+        css={css`
+          padding: 0 24px;
+        `}
+      >
+        <Text typography="t5" fontWeight="bold" color={colors.grey900}>
+          날짜 선택
+        </Text>
+        <Spacing size={16} />
+        <DateSelect />
+      </div>
 
       <Spacing size={24} />
       <Border size={8} />
