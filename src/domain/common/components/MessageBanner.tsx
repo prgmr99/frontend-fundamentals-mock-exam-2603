@@ -11,9 +11,7 @@ function MessageBanner({ message }: MessageBannerProps) {
   if (!message) return null;
 
   const isString = typeof message === 'string';
-
   const text = isString ? message : message.text;
-
   const type = isString ? 'success' : message.type;
 
   return (
