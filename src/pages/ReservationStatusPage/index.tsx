@@ -6,7 +6,7 @@ import MyReservation from 'domain/reservationStatus/components/MyReservation';
 import { useMessage } from 'domain/reservationStatus/hooks/useMessage';
 import DateSelect from 'domain/common/components/DateSelect';
 import ReservationCurrentStatus from 'domain/reservationStatus/components/ReservationCurrentStatus';
-import MessageBanner from 'domain/reservationStatus/components/MessageBanner';
+import MessageBanner from 'domain/common/components/MessageBanner';
 import { WRAPPER_STYLES } from 'domain/common/constants';
 
 export function ReservationStatusPage() {

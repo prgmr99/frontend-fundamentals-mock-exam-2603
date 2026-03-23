@@ -11,10 +11,11 @@ import { getMyReservationQueryOptions, getRoomsQueryOptions } from 'domain/commo
 import DateSelect from 'domain/common/components/DateSelect';
 import { useDate } from 'domain/common/hooks/useDate';
 import LabeledSelectWrapper from 'domain/roomBooking/components/LabeledSelectWrapper';
-import ErrorMessageBox from 'domain/roomBooking/components/ErrorMessageBox';
+
 import { useReservationOptions } from 'domain/common/hooks/useReservationOptions';
 import { useSelectedRoom } from 'domain/common/hooks/useSelectedRoom';
 import { useFloorFilter } from 'domain/common/hooks/useFloorFilter';
+import MessageBanner from 'domain/common/components/MessageBanner';
 
 const ALL_EQUIPMENT = ['tv', 'whiteboard', 'video', 'speaker'];
 
@@ -58,7 +59,7 @@ export function RoomBookingPage() {
     >
       <RoomBookingPage.Header />
 
-      <ErrorMessageBox errorMessage={errorMessage} />
+      <MessageBanner message={errorMessage} />
 
       <Spacing size={24} />
 
