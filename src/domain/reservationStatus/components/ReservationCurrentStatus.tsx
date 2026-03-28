@@ -136,7 +136,8 @@ function RoomTimeline({ room, index }: { room: { id: string; name: string }; ind
         {roomReservations.map(
           (reservation: { id: string; start: string; end: string; attendees: number; equipment: string[] }) => (
             <RoomReservationCard
-              id={`${reservation.id} - ${room.name}`}
+              id={reservation.id}
+              roomName={room.name}
               start={reservation.start}
               end={reservation.end}
               attendees={reservation.attendees}
@@ -151,6 +152,7 @@ function RoomTimeline({ room, index }: { room: { id: string; name: string }; ind
 
 function RoomReservationCard(reservation: {
   id: string;
+  roomName: string;
   start: string;
   end: string;
   attendees: number;
@@ -174,7 +176,7 @@ function RoomReservationCard(reservation: {
     >
       <div
         role="button"
-        aria-label={`${reservation.id} ${reservation.start}-${reservation.end} 예약 상세`}
+        aria-label={`${reservation.roomName} ${reservation.start}-${reservation.end} 예약 상세`}
         onClick={() => setActiveReservation(isActive ? null : reservation.id)}
         css={css`
           width: 100%;
