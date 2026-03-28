@@ -32,7 +32,9 @@ export function ReservationStatusPage() {
 
       <Spacing size={24} />
 
-      {/* 날짜 선택 */}
+      {/* Tip #1: label이랑 UI랑 1대1 대응이 되도록 구조를 잡는다.
+       * 장점: 최상단에서 한 눈에 어떤 구조인지 파악이 가능
+       */}
       <div css={WRAPPER_STYLES}>
         <Text typography="t5" fontWeight="bold" color={colors.grey900}>
           날짜 선택
@@ -45,24 +47,42 @@ export function ReservationStatusPage() {
       <Border size={8} />
       <Spacing size={24} />
 
-      {/* 예약 현황 타임라인 */}
-      <ReservationCurrentStatus />
+      <div css={WRAPPER_STYLES}>
+        <Text typography="t5" fontWeight="bold" color={colors.grey900}>
+          예약 현황
+        </Text>
+        <ReservationCurrentStatus />
+        <Spacing size={16} />
+      </div>
 
       <Spacing size={24} />
       <Border size={8} />
       <Spacing size={24} />
 
-      {/* 메시지 배너 */}
       <MessageBanner message={message} />
 
-      {/* 내 예약 목록 - props 개선 */}
-      <MyReservation handleMessage={message => setMessage(message)} />
+      <div css={WRAPPER_STYLES}>
+        <div
+          css={css`
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+          `}
+        >
+          <Text typography="t5" fontWeight="bold" color={colors.grey900}>
+            내 예약
+          </Text>
+          <MyReservation.TotalCounts />
+        </div>
+
+        <Spacing size={16} />
+        <MyReservation handleMessage={message => setMessage(message)} />
+      </div>
 
       <Spacing size={24} />
       <Border size={8} />
       <Spacing size={24} />
 
-      {/* 예약하기 버튼 */}
       <div css={WRAPPER_STYLES}>
         <Button display="full" onClick={() => navigate('/booking')}>
           예약하기

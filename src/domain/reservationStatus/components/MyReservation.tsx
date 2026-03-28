@@ -6,6 +6,7 @@ import { EQUIPMENT_LABELS, WRAPPER_STYLES } from 'domain/common/constants';
 import { getMyReservationQueryOptions, getRoomsQueryOptions } from 'domain/common/queryOptions';
 import { cancelReservation } from 'pages/remotes';
 
+// TODO: props명 또는 구조 개선
 function MyReservation({
   handleMessage,
 }: {
@@ -17,47 +18,23 @@ function MyReservation({
   const { data: rooms = [] } = useQuery({ ...getRoomsQueryOptions });
   const { data: myReservationList = [] } = useQuery({ ...getMyReservationQueryOptions });
 
-  const cancelMutation = useMutation({
+  const { mutateAsync: cancelMutateAsync } = useMutation({
     mutationFn: (id: string) => cancelReservation(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reservations'] });
       queryClient.invalidateQueries({ queryKey: getMyReservationQueryOptions.queryKey });
+      handleMessage({ type: 'success', text: '예약이 취소되었습니다.' });
+    },
+    onError: () => {
+      handleMessage({ type: 'error', text: '취소에 실패했습니다.' });
     },
   });
-
-  // TODO: 이 녀석을 어떻게 해결할 것인가? -> 우선 props로 전달
-  const handleCancel = async (id: string) => {
-    try {
-      await cancelMutation.mutateAsync(id);
-      handleMessage({ type: 'success', text: '예약이 취소되었습니다.' });
-    } catch {
-      handleMessage({ type: 'error', text: '취소에 실패했습니다.' });
-    }
-  };
 
   const getRoomName = (roomId: string) =>
     rooms.find((r: { id: string; name: string }) => r.id === roomId)?.name ?? roomId;
 
   return (
-    <div css={WRAPPER_STYLES}>
-      <div
-        css={css`
-          display: flex;
-          align-items: baseline;
-          gap: 6px;
-        `}
-      >
-        <Text typography="t5" fontWeight="bold" color={colors.grey900}>
-          내 예약
-        </Text>
-        {myReservationList.length > 0 && (
-          <Text typography="t7" fontWeight="medium" color={colors.grey500}>
-            {myReservationList.length}건
-          </Text>
-        )}
-      </div>
-      <Spacing size={16} />
-
+    <div>
       {myReservationList.length === 0 ? (
         <MyReservation.Empty />
       ) : (
@@ -106,7 +83,7 @@ function MyReservation({
                       onClick={e => {
                         e.stopPropagation();
                         if (window.confirm('정말 취소하시겠습니까?')) {
-                          handleCancel(res.id);
+                          cancelMutateAsync(res.id);
                         }
                       }}
                     >
@@ -122,8 +99,6 @@ function MyReservation({
     </div>
   );
 }
-
-export default MyReservation;
 
 MyReservation.Empty = function Empty() {
   return (
@@ -141,3 +116,19 @@ MyReservation.Empty = function Empty() {
     </div>
   );
 };
+
+MyReservation.TotalCounts = function TotalCounts() {
+  const { data: myReservationList = [] } = useQuery({ ...getMyReservationQueryOptions });
+
+  if (myReservationList.length === 0) {
+    return null;
+  }
+
+  return (
+    <Text typography="t7" fontWeight="medium" color={colors.grey500}>
+      {myReservationList.length}건
+    </Text>
+  );
+};
+
+export default MyReservation;

@@ -23,69 +23,62 @@ function ReservationCurrentStatus() {
   const { data: rooms = [] } = useQuery({ ...getRoomsQueryOptions });
 
   return (
-    <div css={WRAPPER_STYLES}>
-      <Text typography="t5" fontWeight="bold" color={colors.grey900}>
-        예약 현황
-      </Text>
-      <Spacing size={16} />
-
+    <div
+      css={css`
+        background: ${colors.grey50};
+        border-radius: 14px;
+        padding: 16px;
+      `}
+    >
+      {/* 시간 헤더 */}
       <div
         css={css`
-          background: ${colors.grey50};
-          border-radius: 14px;
-          padding: 16px;
+          display: flex;
+          align-items: flex-end;
+          margin-bottom: 8px;
         `}
       >
-        {/* 시간 헤더 */}
         <div
           css={css`
-            display: flex;
-            align-items: flex-end;
-            margin-bottom: 8px;
+            width: 80px;
+            flex-shrink: 0;
+            padding-right: 8px;
+          `}
+        />
+        <div
+          css={css`
+            flex: 1;
+            position: relative;
+            height: 18px;
           `}
         >
-          <div
-            css={css`
-              width: 80px;
-              flex-shrink: 0;
-              padding-right: 8px;
-            `}
-          />
-          <div
-            css={css`
-              flex: 1;
-              position: relative;
-              height: 18px;
-            `}
-          >
-            {HOUR_LABELS.map(t => {
-              const left = (timeToMinutes(t) / TOTAL_MINUTES) * 100;
-              return (
-                <Text
-                  key={t}
-                  typography="t7"
-                  fontWeight="regular"
-                  color={colors.grey400}
-                  css={css`
-                    position: absolute;
-                    left: ${left}%;
-                    transform: translateX(-50%);
-                    font-size: 10px;
-                    letter-spacing: -0.3px;
-                  `}
-                >
-                  {t.slice(0, 2)}
-                </Text>
-              );
-            })}
-          </div>
+          {HOUR_LABELS.map(t => {
+            const left = (timeToMinutes(t) / TOTAL_MINUTES) * 100;
+            return (
+              <Text
+                key={t}
+                typography="t7"
+                fontWeight="regular"
+                color={colors.grey400}
+                css={css`
+                  position: absolute;
+                  left: ${left}%;
+                  transform: translateX(-50%);
+                  font-size: 10px;
+                  letter-spacing: -0.3px;
+                `}
+              >
+                {t.slice(0, 2)}
+              </Text>
+            );
+          })}
         </div>
-
-        {/* 회의실별 타임라인 */}
-        {rooms.map((room: { id: string; name: string }, index: number) => (
-          <RoomTimeline room={room} index={index} />
-        ))}
       </div>
+
+      {/* 회의실별 타임라인 */}
+      {rooms.map((room: { id: string; name: string }, index: number) => (
+        <RoomTimeline room={room} index={index} />
+      ))}
     </div>
   );
 }
