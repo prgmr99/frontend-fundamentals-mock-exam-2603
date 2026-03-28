@@ -76,7 +76,7 @@ export function ReservationStatusPage() {
         </div>
 
         <Spacing size={16} />
-        <MyReservation handleMessage={message => setMessage(message)} />
+        <MyReservation onCancelResult={result => setMessage(result)} />
       </div>
 
       <Spacing size={24} />

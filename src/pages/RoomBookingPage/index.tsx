@@ -41,14 +41,7 @@ export function RoomBookingPage() {
 
   const floors = useFloorFilter();
 
-  // ? 불필요해보임
-  // const resetFilterOptions = () => {
-  //   setSelectedRoomId(null);
-  //   setErrorMessage(null);
-  // };
-
   // 입력 검증
-  // ! 처리하기.
   let validationError: string | null = null;
   const hasTimeInputs = filters.startTime !== '' && filters.endTime !== '';
   if (hasTimeInputs) {

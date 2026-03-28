@@ -6,11 +6,10 @@ import { EQUIPMENT_LABELS, WRAPPER_STYLES } from 'domain/common/constants';
 import { getMyReservationQueryOptions, getRoomsQueryOptions } from 'domain/common/queryOptions';
 import { cancelReservation } from 'pages/remotes';
 
-// TODO: props명 또는 구조 개선
 function MyReservation({
-  handleMessage,
+  onCancelResult,
 }: {
-  handleMessage: (message: { type: 'success' | 'error'; text: string }) => void;
+  onCancelResult: (message: { type: 'success' | 'error'; text: string }) => void;
 }) {
   const queryClient = useQueryClient();
 
@@ -23,10 +22,10 @@ function MyReservation({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reservations'] });
       queryClient.invalidateQueries({ queryKey: getMyReservationQueryOptions.queryKey });
-      handleMessage({ type: 'success', text: '예약이 취소되었습니다.' });
+      onCancelResult({ type: 'success', text: '예약이 취소되었습니다.' });
     },
     onError: () => {
-      handleMessage({ type: 'error', text: '취소에 실패했습니다.' });
+      onCancelResult({ type: 'error', text: '취소에 실패했습니다.' });
     },
   });
 

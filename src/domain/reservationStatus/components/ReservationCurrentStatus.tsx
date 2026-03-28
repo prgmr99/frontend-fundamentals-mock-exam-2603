@@ -19,7 +19,6 @@ function timeToMinutes(time: string): number {
 }
 
 function ReservationCurrentStatus() {
-  // TODO: queryOptions 활용 + useSuspenseQuery로 교체
   const { data: rooms = [] } = useQuery({ ...getRoomsQueryOptions });
 
   return (
