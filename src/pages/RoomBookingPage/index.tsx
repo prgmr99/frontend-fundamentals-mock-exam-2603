@@ -18,6 +18,7 @@ import { useFloorFilter } from 'domain/common/hooks/useFloorFilter';
 import MessageBanner from 'domain/common/components/MessageBanner';
 import { getAvailableRooms } from 'domain/common/utils/availableRoomsFilter';
 import useAvailableRooms from 'domain/common/hooks/useAvailableRooms';
+import { isFilterValid } from 'domain/common/utils/isFilterValid';
 import NumberInput from 'domain/common/components/NumberInput';
 
 const ALL_EQUIPMENT = ['tv', 'whiteboard', 'video', 'speaker'];
@@ -286,11 +287,11 @@ export function RoomBookingPage() {
           <Text typography="t5" fontWeight="bold" color={colors.grey900}>
             예약 가능 회의실
           </Text>
-          <RoomBookingPage.AvailableRoomsCounts validationError={validationError ?? ''} />
+          <RoomBookingPage.AvailableRoomsCounts />
         </div>
         <Spacing size={16} />
 
-        <RoomBookingPage.AvailableRoomsList validationError={validationError} />
+        <RoomBookingPage.AvailableRoomsList />
 
         <Spacing size={16} />
         <Button display="full" onClick={bookAvailableRooms} disabled={isPending}>
@@ -380,8 +381,8 @@ RoomBookingPage.NeededEquipmentsWrapper = function NeededEquipmentsWrapper() {
   );
 };
 
-RoomBookingPage.AvailableRoomsCounts = function AvailableRoomsCounts({ validationError }: { validationError: string }) {
-  const availableRooms = useAvailableRooms(validationError);
+RoomBookingPage.AvailableRoomsCounts = function AvailableRoomsCounts() {
+  const availableRooms = useAvailableRooms();
 
   return (
     <Text typography="t7" fontWeight="medium" color={colors.grey500}>
@@ -390,18 +391,10 @@ RoomBookingPage.AvailableRoomsCounts = function AvailableRoomsCounts({ validatio
   );
 };
 
-RoomBookingPage.AvailableRoomsList = function AvailableRoomsList({
-  validationError,
-}: {
-  validationError: string | null;
-}) {
+RoomBookingPage.AvailableRoomsList = function AvailableRoomsList() {
   const [date] = useDate();
   const [filters] = useReservationOptions();
   const [selectedRoomId, setSelectedRoomId] = useSelectedRoom();
-
-  const { startTime, endTime } = filters;
-
-  const hasTimeInputs = startTime !== '' && endTime !== '';
 
   const { data: rooms = [] } = useQuery({ ...getRoomsQueryOptions });
   const { data: reservations = [] } = useQuery({
@@ -410,7 +403,7 @@ RoomBookingPage.AvailableRoomsList = function AvailableRoomsList({
     enabled: !!date,
   });
 
-  const isFilterComplete = hasTimeInputs && !validationError;
+  const isFilterComplete = isFilterValid(filters);
 
   const availableRooms = useMemo(() => {
     if (!isFilterComplete || rooms.length === 0) return [];
