@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import { useDate } from '../hooks/useDate';
-import { formatDate } from '../utils';
+import { formatDate } from '../utils/formateDate';
 import { colors } from '_tosslib/constants/colors';
 
-function DateSelect({ onChange }: { onChange?: () => void }) {
+function DateSelect() {
   const [date, setDate] = useDate();
 
   return (
@@ -18,10 +18,7 @@ function DateSelect({ onChange }: { onChange?: () => void }) {
         type="date"
         value={date}
         min={formatDate(new Date())}
-        onChange={e => {
-          setDate(e.target.value);
-          onChange?.();
-        }}
+        onChange={e => setDate(e.target.value)}
         aria-label="날짜"
         css={css`
           box-sizing: border-box;

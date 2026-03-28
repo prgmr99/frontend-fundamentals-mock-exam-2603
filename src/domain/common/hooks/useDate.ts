@@ -1,5 +1,5 @@
 import { useQueryState } from 'nuqs';
-import { formatDate } from '../utils';
+import { formatDate } from '../utils/formateDate';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
